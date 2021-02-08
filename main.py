@@ -156,5 +156,7 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
 for name, param in net.named_parameters():
   print(name, type(param))
 
+print(type(net.module.features.0.weight))
+
     
 
