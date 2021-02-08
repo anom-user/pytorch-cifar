@@ -154,7 +154,7 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
     scheduler.step()
 
 for name, param in net.named_parameters():
-  print(name, param)
+  print(name, type(param))
 
     
 
