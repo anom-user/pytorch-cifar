@@ -155,8 +155,11 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
 
 for name, param in net.named_parameters():
   print(name, type(param))
-for i in range(64):
-  print(net.module.features[0].weight[i,2,2,2])
+  
+with torch.no_grad():
+  for i in range(64):
+    print(net.module.features[0].weight[i,2,2,2])
+    net.module.features[0].weight[i,2,2,2] = 0
 
     
 
