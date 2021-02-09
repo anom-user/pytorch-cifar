@@ -148,7 +148,7 @@ with torch.no_grad():
     net.module.features[0].weight[i,2,2,2] = 0
 a=torch.flatten(net.module.features[0].weight)
 a=torch.sort(a)
-print(a, a.shape)
+print(a, a.size())
 test(epoch)
 
     
