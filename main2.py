@@ -77,6 +77,8 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
 
 # Training
 def train(epoch):
+    learning_rate= 0.1 * (0.25 ** (epoch // 20))
+    optimizer = optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9, weight_decay=5e-4)
     print('\nEpoch: %d' % epoch)
     net.train()
     train_loss = 0
@@ -137,7 +139,7 @@ def test(epoch):
 for epoch in range(start_epoch, start_epoch+200): #start_epoch+200):
     train(epoch)
     test(epoch)
-    scheduler.step()
+    #scheduler.step()
 
 for name, param in net.named_parameters():
   print(name, type(param))
