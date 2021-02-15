@@ -147,8 +147,15 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
 #print(type(net.modules))
 for module in net.modules():
   print(module)
-print(len(net.modules()))
-  
+layers = [module for module in net.modules()]
+print(len(layers))
+
+for batch_idx, (inputs, targets) in enumerate(testloader):
+  inputs, targets = inputs.to(device), targets.to(device)
+  outputs = layers[0](inputs)
+  print("layer output has type", type(outputs))
+
+
 with torch.no_grad():
   for i in range(64):
     #print(net.module.features[0].weight[i,2,2,2])
