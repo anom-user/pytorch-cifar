@@ -153,7 +153,7 @@ print(len(layers))
 for batch_idx, (inputs, targets) in enumerate(testloader):
   inputs, targets = inputs.to(device), targets.to(device)
   outputs = layers[0](inputs)
-  print("layer output has type", type(outputs))
+  print("layer output has type", outputs.shape())
 
 
 with torch.no_grad():
