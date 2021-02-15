@@ -148,7 +148,7 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
 for module in net.modules():
   print("module is", module)
 layers = [module for module in net.modules()]
-print("the first layer is", layers[0])
+print("the first layer is", net.module.features[0]) #layers[0])
 
 for batch_idx, (inputs, targets) in enumerate(testloader):
   inputs, targets = inputs.to(device), targets.to(device)
