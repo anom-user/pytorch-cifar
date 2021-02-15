@@ -141,12 +141,13 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
     test(epoch)
     #scheduler.step()
 
-for name, param in net.named_parameters():
-  print(name, type(param))
+#for name, param in net.named_parameters():
+  #print(name, type(param))
 
-print(type(net.modules))
+#print(type(net.modules))
 for module in net.modules():
   print(module)
+print(len(net.modules()))
   
 with torch.no_grad():
   for i in range(64):
