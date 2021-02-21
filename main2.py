@@ -10,6 +10,7 @@ import torchvision.transforms as transforms
 
 import os
 import argparse
+import itertools
 
 from models import *
 from utils import progress_bar
@@ -166,19 +167,20 @@ a=torch.flatten(net.module.features[0].weight)
 a=torch.sort(torch.abs(a))[0]
 print(a, type(a))
 print("entries from sorted list are", list(a.shape), a[10], a[800], a[1200])
+for i in range(1700):
+  if a[i]<0.2 and a[i]>0.1:
+    print("index is", i, a[i])
 test(epoch)
 
 def prune(model,l,c): 
-  m=net.module.features[l].weight #model.layers[l].get_weights() 
-  s=m.shape
+  m=model.module.features[l].weight #model.layers[l].get_weights() 
+  s=list(m.shape)
   m=torch.sort(torch.abs(m))[0]
-  threshold = w1[int(c*m.size)]
+  threshold = m[int(c*list(a.shape)[0])]
   index=list(itertools.product(range(s[0]), range(s[1]), range(s[2]), range(s[3])))
-  w1=m[0]
   mask=[]
   for i in index:
     if np.abs(w1[i[0],i[1],i[2],i[3]])<threshold:
-      w1[i[0],i[1],i[2],i[3]]=0
+      net.module.features[0].weight[i[0],i[1],i[2],i[3]]=0
       mask.append(i)
-  model.layers[l].set_weights([w1,m[1]])
   return [model, mask] 
