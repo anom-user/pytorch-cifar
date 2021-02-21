@@ -175,6 +175,7 @@ def prune(model,l,c):
   s=list(m.shape)
   m=torch.sort(torch.abs(m))[0]
   threshold = m[int(c*list(m.shape)[0])]
+  print("threshold is", threshold)
   index=list(itertools.product(range(s[0]), range(s[1]), range(s[2]), range(s[3])))
   mask=[]
   for i in index:
