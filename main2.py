@@ -137,7 +137,7 @@ def test(epoch):
         best_acc = acc
 
 
-for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
+for epoch in range(start_epoch, start_epoch+3): #start_epoch+200):
     train(epoch)
     test(epoch)
     #scheduler.step()
@@ -170,17 +170,21 @@ print("entries from sorted list are", list(a.shape), a[10], a[800], a[1200])
 for i in range(1700):
   if a[i]<0.2 and a[i]>0.1:
     print("index is", i, a[i])
-test(epoch)
 
 def prune(model,l,c): 
   m=model.module.features[l].weight #model.layers[l].get_weights() 
   s=list(m.shape)
   m=torch.sort(torch.abs(m))[0]
-  threshold = m[int(c*list(a.shape)[0])]
+  threshold = m[int(c*list(m.shape)[0])]
   index=list(itertools.product(range(s[0]), range(s[1]), range(s[2]), range(s[3])))
   mask=[]
   for i in index:
-    if np.abs(w1[i[0],i[1],i[2],i[3]])<threshold:
-      net.module.features[0].weight[i[0],i[1],i[2],i[3]]=0
-      mask.append(i)
-  return [model, mask] 
+    with torch.no_grad():
+      if model.module.features[l].weight[i[0],i[1],i[2],i[3]]<threshold:
+        model.module.features[l].weight[i[0],i[1],i[2],i[3]]=0
+        mask.append(i)
+  return [model, mask]
+
+
+net=prune(net, 0, 0.5)[0]
+test(epoch)
