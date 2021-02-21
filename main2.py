@@ -144,10 +144,10 @@ for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
 
 #for name, param in net.named_parameters():
   #print(name, type(param))
-
 #print(type(net.modules))
 #for module in net.modules():
   #print("module is", module)
+  
 layers = [module for module in net.modules()]
 print("the first layer is", net.module.features[0]) #layers[0])
 
@@ -157,11 +157,11 @@ for batch_idx, (inputs, targets) in enumerate(testloader):
   #print("layer output has type", outputs.shape)
 
 
-with torch.no_grad():
-  for i in range(64):
-    print(net.module.features[0].weight[i,2,2,2])
-    if net.module.features[0].weight[i,2,2,2] < 1:
-      print("value of small weight is", net.module.features[0].weight[i,2,2,2])
+#with torch.no_grad():
+  #for i in range(64):
+    #print(net.module.features[0].weight[i,2,2,2])
+    #if net.module.features[0].weight[i,2,2,2] < 1:
+      #print("value of small weight is", net.module.features[0].weight[i,2,2,2])
 a=net.module.features[0].weight
 print("shape is", list(a.shape))
 a=torch.flatten(net.module.features[0].weight)
