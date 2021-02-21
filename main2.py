@@ -167,9 +167,7 @@ a=torch.flatten(net.module.features[0].weight)
 a=torch.sort(torch.abs(a))[0]
 print(a, type(a))
 print("entries from sorted list are", list(a.shape), a[10], a[800], a[1200])
-for i in range(1700):
-  if a[i]<0.2 and a[i]>0.1:
-    print("index is", i, a[i])
+
 
 def prune(model,l,c): 
   m=model.module.features[l].weight #model.layers[l].get_weights() 
