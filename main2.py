@@ -137,7 +137,7 @@ def test(epoch):
         best_acc = acc
 
 
-for epoch in range(start_epoch, start_epoch+3): #start_epoch+200):
+for epoch in range(start_epoch, start_epoch+1): #start_epoch+200):
     train(epoch)
     test(epoch)
     #scheduler.step()
@@ -159,8 +159,9 @@ for batch_idx, (inputs, targets) in enumerate(testloader):
 
 with torch.no_grad():
   for i in range(64):
-    #print(net.module.features[0].weight[i,2,2,2])
-    net.module.features[0].weight[i,2,2,2] = 0
+    print(net.module.features[0].weight[i,2,2,2])
+    if net.module.features[0].weight[i,2,2,2] < 1:
+      print("value of small weight is", net.module.features[0].weight[i,2,2,2])
 a=net.module.features[0].weight
 print("shape is", list(a.shape))
 a=torch.flatten(net.module.features[0].weight)
